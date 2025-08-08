@@ -32,6 +32,9 @@ h2 {
 h3 {
   color: #333;
 }
+p{
+  text-align: center;
+}
 
 /* Hero Section */
 .hero {
