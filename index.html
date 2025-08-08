@@ -477,6 +477,18 @@
                 <cite>- Grace T.</cite>
               </blockquote>
             </div>
+
+             <!---Commen Section-->
+        <div class="faq-comments">
+          <h3>Leave a Comment</h3>
+          <form id="commentForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <textarea id="comment" placeholder="Write your comment..." required></textarea>
+            <button type="submit">Post Comment</button>
+          </form>
+
+          <div id="commentList"></div>
+        </div>
           </section>
 
           <!-- FAQs Section -->
@@ -486,10 +498,12 @@
           <h3>Do I need to book in advance?</h3>
           <p>We recommend booking ahead via WhatsApp, especially on weekends.</p>
         </div>
+
         <div class="faq-item">
           <h3>What products do you sell?</h3>
           <p>We sell body lotions, facial cleansers, hair treatments and more.</p>
         </div>
+
         <div class="faq-item">
           <h3>Can I train at your academy?</h3>
           <p>Yes! We offer professional training in various beauty services.</p>
@@ -666,6 +680,54 @@ function bookHome(service) {
   const message = `Hi! I'd like to book a ${service} home service appointment. Please provide details.`;
   window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
 }
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, serverTimestamp } 
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDHOfBbpawIBrl3Dmh20zDzPraknNayvis",
+    authDomain: "saloncomments-1c6a2.firebaseapp.com",
+    projectId: "saloncomments-1c6a2",
+    storageBucket: "saloncomments-1c6a2.firebasestorage.app",
+    messagingSenderId: "380362598457",
+    appId: "1:380362598457:web:d7db0529c00f3f690e45e8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  document.getElementById("commentForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const comment = document.getElementById("comment").value.trim();
+    if (!name || !comment) return alert("Please fill all fields");
+
+    await addDoc(collection(db, "comments"), {
+      name,
+      comment,
+      timestamp: serverTimestamp()
+    });
+
+    document.getElementById("commentForm").reset();
+    loadComments();
+  });
+
+  async function loadComments() {
+    const commentsList = document.getElementById("commentsList");
+    commentsList.innerHTML = "";
+    const querySnapshot = await getDocs(collection(db, "comments"));
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const div = document.createElement("div");
+      div.innerHTML = <strong>${data.name}</strong>: ${data.comment};
+      commentsList.appendChild(div);
+    });
+  }
+
+  loadComments();
 </script>
     </body>
 </html>

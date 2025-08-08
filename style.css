@@ -374,6 +374,56 @@ color: #f8c034;
   color: #d4a017;
 }
 
+
+/* ===== Comment Form ===== */
+.faq-comments {
+  margin-top: 30px;
+  padding: 15px;
+  border-top: 2px solid #ccc;
+}
+
+.faq-comments form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-comments input, .faq-comments textarea{
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.faq-comments button {
+  padding: 10px;
+  background: #d4a373;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.faq-comments button:hover {
+  background: #b38354;
+}
+
+.comment-item {
+  margin-top: 15px;
+  padding: 10px;
+  background: #f8f8f8;
+  border-radius: 5px;
+  border-left: 4px solid #d4a373;
+}
+
+.comment-item strong{
+  display: block;
+  margin-bottom: 5px;
+}
+
+
+
+
+
 /* Newsletter */
 #newsletter {
   background-color: #fff3cd;
