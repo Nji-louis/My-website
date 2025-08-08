@@ -722,7 +722,7 @@ function bookHome(service) {
     querySnapshot.forEach((doc) => {
       const data = doc.data();
       const div = document.createElement("div");
-      div.innerHTML = <strong>${data.name}</strong>: ${data.comment};
+      div.innerHTML = `<strong>${data.name}</strong>: ${data.comment}`;
       commentsList.appendChild(div);
     });
   }
